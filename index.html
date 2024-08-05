@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja DIVA’S</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        body,
+        html {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #ffffff;
+            color: rgb(7, 7, 7);
+            overflow-x: hidden;
+        }
+
+        input {
+            background-color: #000;
+            border: 0;
+            outline: 0;
+            text-decoration: none;
+            border-bottom: solid 3px white;
+            padding: 10px;
+            margin: 0 -1rem;
+            margin-top: 1rem;
+        }
+
+        input::placeholder {
+            color: white;
+        }
+
+        #flexNav {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        i {
+            margin: 0 1rem;
+            font-size: 25px;
+        }
+
+        header {
+            text-align: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        h2 {
+            margin: 3rem 0;
+            font-size: 69px;
+        }
+
+        img {
+            margin: 1rem 0;
+            width: 75%;
+            max-width: 500px; /* Limitar a largura máxima */
+            height: auto;
+            cursor: pointer; /* Cursor de ponteiro para indicar interatividade */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        img:hover {
+            transform: scale(1.05); /* Efeito hover para imagens maiores */
+        }
+
+        h5 {
+            text-align: center;
+        }
+
+        /* Estilos para imagens menores */
+        .small-images {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* Espaço entre imagens */
+            margin-top: 1rem;
+        }
+
+        .small-images div {
+            text-align: center;
+            position: relative;
+        }
+
+        .small-images img {
+            width: 100px; /* Tamanho das imagens menores */
+            cursor: pointer; /* Muda o cursor para indicar que a imagem pode ser clicada */
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease-in-out; /* Transição suave para a ampliação */
+        }
+
+        .small-images img:hover {
+            transform: scale(1.1); /* Efeito hover para ampliar a imagem */
+        }
+
+        .price {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Estilos para a visualização ampliada */
+        .modal {
+            display: none; /* Modal inicialmente invisível */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="flexNav">
+        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-user"></i>
+        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-bookmark"></i>
+    </div>
+    <header>
+        <h2>DIVA’S</h2>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem;">
+            <input type="text" placeholder="O que você procura">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <img src="https://static.vecteezy.com/ti/vetor-gratis/p3/9352946-anuncios-de-produtos-de-cosmeticos-ou-cuidados-com-a-pele-com-banner-de-garrafa-para-produtos-de-beleza-design-de-de-fundo-rosa-e-folha-de-efeito-de-luz-brilhante-vetor.jpg"
+            alt="Main Product Image">
+
+        <!-- Adiciona imagens menores abaixo da imagem principal -->
+        <div class="small-images">
+            <div>
+                <img src="https://i.pinimg.com/564x/c2/57/a1/c257a16ccacafea04ef9e6efbf28b7bd.jpg" alt="Small Image 1" class="thumbnail">
+                <div class="price">R$ 339,90</div>
+            </div>
+            <div>
+                <img src="https://i.pinimg.com/564x/5b/9f/7f/5b9f7fa9bac7e4c717f6b96e70a00a91.jpg" alt="Small Image 2" class="thumbnail">
+                <div class="price">R$149,90</div>
+            </div>
+            <div>
+                <img src="https://i.pinimg.com/564x/19/49/27/19492729b85041d7094f5131ecad3fa3.jpg" alt="Small Image 3" class="thumbnail">
+                <div class="price">R$ 159,90</div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h5></h5>
+    </main>
+
+    <!-- Modal para visualização ampliada -->
+    <div class="modal" id="modal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script src="https://kit.fontawesome.com/bdf57aa9a9.js" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript para ampliar imagens
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+
+        thumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = thumbnail.src;
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
